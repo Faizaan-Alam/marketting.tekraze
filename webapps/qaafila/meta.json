@@ -1,0 +1,12 @@
+{
+  "title": "Qaafila",
+  "description": "Website for Qaafila, a literary and cultural society: poetry, shayari, acting, standup, open mic, podcast, dance, rap and a book club.",
+  "tags": [
+    "Website",
+    "Community",
+    "Literary"
+  ],
+  "thumbnail": "thumbnail.webp",
+  "liveUrl": "https://qaafila-bvp.vercel.app/",
+  "order": 10
+}

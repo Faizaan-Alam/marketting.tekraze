@@ -1,0 +1,12 @@
+{
+  "title": "Pratibimb",
+  "description": "Website for Pratibimb, the annual magazine of the IEEE Student Branch at Bharati Vidyapeeth's College of Engineering, New Delhi, with an archive of past issues.",
+  "tags": [
+    "Magazine",
+    "IEEE",
+    "Archive"
+  ],
+  "thumbnail": "thumbnail.webp",
+  "liveUrl": "https://pratibimb-mu.vercel.app/",
+  "order": 20
+}

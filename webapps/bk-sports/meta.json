@@ -1,0 +1,12 @@
+{
+  "title": "BK Sports & Fitness",
+  "description": "Website for a Paschim Vihar sports shop running since 1999: cricket, football, badminton and gym gear, bat knocking, racket repair and delivery across India.",
+  "tags": [
+    "Business",
+    "Retail",
+    "Sports"
+  ],
+  "thumbnail": "thumbnail.webp",
+  "liveUrl": "https://bksport.vercel.app/",
+  "order": 30
+}

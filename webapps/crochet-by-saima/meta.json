@@ -1,0 +1,11 @@
+{
+  "title": "Your Crochet Studio",
+  "description": "Showcase website for handmade crochet creations: accessories, plushies, flowers and personalised gifts.",
+  "tags": [
+    "Portfolio",
+    "Handmade"
+  ],
+  "thumbnail": "thumbnail.webp",
+  "liveUrl": "https://crochet-by-saima.vercel.app/",
+  "order": 40
+}
