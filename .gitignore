@@ -33,6 +33,9 @@ public/video/*.mov
 public/video/*.webm
 !public/video/web/
 
+# raw videos you drop in the project root (copy them to public/video/ and run `npm run media`)
+/video/
+
 # misc
 .DS_Store
 *.log
