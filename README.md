@@ -51,6 +51,9 @@ so the form works without Turnstile or an email account (enquiries are logged, r
      `loopStart`/`loopSeconds` pick the loop; `scrubStart`/`scrubEnd` the scrubbed segment.
    - `assignments` — `"<service-slug>": "<video id>"` shows that video as the card's hover
      preview and in the title card. `growth-bundle` is also a valid key.
+   - `showcase` — `"<category>": ["<video id>", …]` adds each video as its own playable card
+     (poster, hover preview, full player) at the end of that category's row. Categories: `brand`,
+     `content`, `web`, `video`, `research`.
    - `details` — a title, a description (shown as the video transcript/description for
      screen-reader users) and an optional captions file name (`.vtt` in `public/video/captions/`).
 4. Restart `npm run dev` (manifests are rebuilt automatically before `dev` and `build`).

@@ -2,10 +2,14 @@
 
 import { m } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { CloseIcon } from "@/components/ui/Icons";
 import { useModal } from "@/lib/client/focus";
 
-/** Accessible modal shell: focus trap, Esc to close, scroll lock, focus returned on close. */
+/**
+ * Accessible modal shell: focus trap, Esc to close, scroll lock, focus returned on close.
+ * Rendered through a portal on <body> so transformed ancestors (3D rows) can never trap it.
+ */
 export function ModalFrame({
   labelledBy,
   onClose,
@@ -21,7 +25,7 @@ export function ModalFrame({
 }) {
   const panel = useRef<HTMLDivElement>(null);
   useModal(panel, true, onClose, returnTo);
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[75] overflow-y-auto overscroll-contain" data-lenis-prevent>
       <m.div
         className="fixed inset-0 bg-ink/80 backdrop-blur-sm"
@@ -56,6 +60,7 @@ export function ModalFrame({
           {children}
         </m.div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

@@ -1,5 +1,5 @@
 {
-  "_help": "Map videos in public/video/ to places on the site. Video ids are the file name in lowercase with dashes (run `npm run media` and check the printed list). Edit freely; unknown ids are ignored with a warning.",
+  "_help": "Map videos in public/video/ to places on the site. Video ids are the file name in lowercase with dashes (run `npm run media` and check the printed list). Edit freely; unknown ids are ignored with a warning. `showcase` lists videos shown as their own playable cards in a category row (brand, content, web, video, research).",
   "hero": {
     "video": "whatsapp-video-2026-11-26-at-7-44-03-pm",
     "loopStart": 22,
@@ -9,11 +9,15 @@
     "scrubFrames": 66
   },
   "assignments": {
+    "short-promo-videos": "whatsapp-video-2026-11-26-at-7-44-03-pm",
     "growth-bundle": "whatsapp-video-2026-11-26-at-7-44-03-pm"
+  },
+  "showcase": {
+    "video": ["whatsapp-video-2026-11-26-at-7-44-03-pm"]
   },
   "details": {
     "whatsapp-video-2026-11-26-at-7-44-03-pm": {
-      "title": "Product promo showcase",
+      "title": "SpearTrades product promo",
       "description": "PLACEHOLDER: describe this video in one or two sentences for screen-reader users and the transcript panel.",
       "captions": "",
       "previewStart": 24

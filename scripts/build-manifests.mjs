@@ -69,6 +69,12 @@ const VideoMap = z.object({
     })
     .optional(),
   assignments: z.record(z.string().regex(SAFE_SLUG), z.string()).default({}),
+  showcase: z
+    .partialRecord(
+      z.enum(["brand", "content", "web", "video", "research"]),
+      z.array(z.string()).max(12),
+    )
+    .default({}),
   details: z
     .record(
       z.string(),
@@ -283,7 +289,15 @@ const frameOrigins = [
 mkdirSync(GEN_DIR, { recursive: true });
 const write = (name, data) =>
   writeFileSync(path.join(GEN_DIR, name), JSON.stringify(data, null, 2) + "\n");
-write("video-manifest.json", { videos, hero, assignments });
+const showcase = {};
+for (const [category, ids] of Object.entries(videoMap.showcase)) {
+  showcase[category] = ids.filter((id) => {
+    if (videos[id]) return true;
+    warn(`video-map showcase "${category}" -> "${id}": no such video in public/video/`);
+    return false;
+  });
+}
+write("video-manifest.json", { videos, hero, assignments, showcase });
 write("assets-manifest.json", { members, posters });
 write("webapps-manifest.json", { webapps, frameOrigins });
 

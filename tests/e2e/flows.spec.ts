@@ -43,6 +43,22 @@ test.describe("main flows", () => {
     await expect(page.getByLabel("Service", { exact: true })).toHaveValue("Crypto analysis");
   });
 
+  test("Video & Social row shows the showcase video and plays it", async ({ page }) => {
+    await skipIntro(page);
+    await page.goto("/");
+    const card = page
+      .locator("#row-video")
+      .getByRole("button", { name: /SpearTrades product promo/ });
+    await card.scrollIntoViewIfNeeded();
+    await expect(card.locator("img")).toBeVisible();
+    await card.click();
+    const dialog = page.getByRole("dialog", { name: "SpearTrades product promo" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator("video[controls]")).toHaveAttribute("src", /\/video\/web\//);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
+
   test("search: type, arrow, enter opens the result", async ({ page }) => {
     await skipIntro(page);
     await page.goto("/");

@@ -48,6 +48,7 @@ const videoManifest = z
     videos: z.record(z.string(), videoSchema),
     hero: heroSchema.nullable(),
     assignments: z.record(z.string(), z.string()),
+    showcase: z.record(z.string(), z.array(z.string())).default({}),
   })
   .parse(videoManifestJson);
 
@@ -83,6 +84,14 @@ export const webAppFrameOrigins: ReadonlyArray<string> = webappsManifest.frameOr
 export function videoFor(target: string): VideoAsset | null {
   const id = videoManifest.assignments[target];
   return id ? (videoManifest.videos[id] ?? null) : null;
+}
+
+/** Videos shown as their own playable cards in a category row. */
+export function showcaseFor(category: string): ReadonlyArray<VideoAsset> {
+  return (videoManifest.showcase[category] ?? []).flatMap((id) => {
+    const v = videoManifest.videos[id];
+    return v ? [v] : [];
+  });
 }
 
 export function memberPhoto(slug: string): string | null {

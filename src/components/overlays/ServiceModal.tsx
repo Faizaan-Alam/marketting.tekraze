@@ -18,7 +18,7 @@ function syncServiceParam(slug: string | null): void {
   window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
 }
 
-function ModalVideo({ video, title }: { video: VideoAsset; title: string }) {
+export function ModalVideo({ video, title }: { video: VideoAsset; title: string }) {
   return (
     <figure className="relative">
       <video

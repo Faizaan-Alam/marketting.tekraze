@@ -11,6 +11,8 @@ import {
 import type { Category, Service } from "@/content/schema";
 import { ChevronIcon } from "@/components/ui/Icons";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { VideoShowcaseCard } from "@/components/ui/VideoShowcaseCard";
+import { showcaseFor } from "@/lib/media";
 
 /**
  * A horizontal row (carousel). It is a plain scrollable list: touch-swipe, trackpad and the
@@ -167,6 +169,11 @@ export function ServiceRow({
           className="[transform-style:preserve-3d] transition-[opacity] duration-300"
         >
           <ServiceCard service={s} hue={category.hue} />
+        </li>
+      ))}
+      {showcaseFor(category.id).map((v) => (
+        <li key={v.id} className="[transform-style:preserve-3d] transition-[opacity] duration-300">
+          <VideoShowcaseCard video={v} hue={category.hue} />
         </li>
       ))}
     </RowShell>

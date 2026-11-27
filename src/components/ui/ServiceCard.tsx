@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { m } from "framer-motion";
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
 import type { Service } from "@/content/schema";
 import { categoryById } from "@/content/services";
 import { PosterArt } from "./PosterArt";
@@ -11,9 +11,8 @@ import { posterOverride, videoFor } from "@/lib/media";
 import { detectCapabilities } from "@/lib/client/capabilities";
 import { openService } from "@/lib/client/store";
 import { playCue } from "@/lib/client/sound";
+import { claimPreview } from "@/lib/client/preview";
 
-/** Only one preview plays at a time across the whole page. */
-let stopActivePreview: (() => void) | null = null;
 let collapseActive: (() => void) | null = null;
 
 type Props = {
@@ -30,6 +29,7 @@ export function ServiceCard({ service, hue, context = "row", rank }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [touch, setTouch] = useState(false);
   const hoverTimer = useRef<number | null>(null);
+  const stopSelf = useCallback(() => setPreview(false), []);
   const lastPointer = useRef<string>("mouse");
   const video = videoFor(service.slug);
   const override = posterOverride(service.slug);
@@ -47,8 +47,7 @@ export function ServiceCard({ service, hue, context = "row", rank }: Props) {
   const startPreview = () => {
     const caps = detectCapabilities();
     if (caps.reducedMotion || caps.saveData) return;
-    if (stopActivePreview) stopActivePreview();
-    stopActivePreview = () => setPreview(false);
+    claimPreview(stopSelf);
     setPreview(true);
   };
   const stopPreview = () => {
