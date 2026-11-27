@@ -1,0 +1,29 @@
+{
+  "_help": "Map videos in public/video/ to places on the site. Video ids are the file name in lowercase with dashes (run `npm run media` and check the printed list). Edit freely; unknown ids are ignored with a warning.",
+  "hero": {
+    "video": "whatsapp-video-2026-11-26-at-7-44-03-pm",
+    "loopStart": 22,
+    "loopSeconds": 10,
+    "scrubStart": 30,
+    "scrubEnd": 96,
+    "scrubFrames": 66
+  },
+  "assignments": {
+    "short-promo-videos": "vid-20260421-074148-859-bsl",
+    "growth-bundle": "whatsapp-video-2026-11-26-at-7-44-03-pm"
+  },
+  "details": {
+    "whatsapp-video-2026-11-26-at-7-44-03-pm": {
+      "title": "Product promo showcase",
+      "description": "PLACEHOLDER: describe this video in one or two sentences for screen-reader users and the transcript panel.",
+      "captions": "",
+      "previewStart": 24
+    },
+    "vid-20260421-074148-859-bsl": {
+      "title": "Vertical short showcase",
+      "description": "PLACEHOLDER: describe this video in one or two sentences for screen-reader users and the transcript panel.",
+      "captions": "",
+      "previewStart": 2
+    }
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+public
+webapps
+src/generated
+package-lock.json
+playwright-report
+test-results
+.claude

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "3d-web-experience": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "skillPath": "cli-tool/components/skills/creative-design/3d-web-experience/SKILL.md",
+      "computedHash": "620ab450241d175760a2463b0cdd370b632f11ece3f28c406b7b1d048b80aa1d"
+    },
+    "three-js": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "three-js/SKILL.md",
+      "computedHash": "b84a2480b60df21a3c23be6dfaff050a4062b7f8f839436451a25b0a2d1ad34a"
+    }
+  }
+}

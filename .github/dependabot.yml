@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      three:
+        patterns: ["three", "@types/three", "@react-three/*"]
+      next:
+        patterns:
+          ["next", "eslint-config-next", "react", "react-dom", "@types/react", "@types/react-dom"]
+      tooling:
+        patterns:
+          [
+            "eslint*",
+            "prettier",
+            "typescript",
+            "vitest",
+            "@playwright/test",
+            "tailwindcss",
+            "@tailwindcss/*",
+          ]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly

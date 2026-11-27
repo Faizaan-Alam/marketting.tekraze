@@ -1,0 +1,43 @@
+# Production stack: Nginx (TLS, rate limits, headers) → Next.js app (non-root, read-only).
+# Put Cloudflare (or another CDN/WAF) in front of this host — see DEPLOYMENT.md.
+services:
+  app:
+    build:
+      context: ..
+      args:
+        NEXT_PUBLIC_CAPTCHA_PROVIDER: turnstile
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:?set in deploy/.env}
+    env_file: ./app.env # secrets live here on the server only (chmod 600, never committed)
+    environment:
+      CLIENT_IP_HEADER: x-real-ip
+    read_only: true
+    tmpfs:
+      - /app/.next/cache:size=256m,uid=100,gid=101
+      - /tmp:size=16m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 768m
+    pids_limit: 256
+    restart: unless-stopped
+    expose: ["3000"]
+    networks: [internal]
+
+  nginx:
+    image: nginx:1.29-alpine
+    depends_on: [app]
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    read_only: true
+    tmpfs: ["/var/cache/nginx", "/var/run", "/tmp"]
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE, CHOWN, SETUID, SETGID]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    networks: [internal, public]
+
+networks:
+  internal:
+    internal: true
+  public: {}
