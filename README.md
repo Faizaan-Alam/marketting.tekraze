@@ -142,4 +142,5 @@ Full steps — TLS, HSTS preload, Cloudflare WAF and rate limits, updates, backu
 
 Measured against `localhost`; expect real-world numbers to shift with hosting and CDN. Reports:
 `docs/lighthouse/`.
+
 # marketting.tekraze

@@ -5,7 +5,7 @@ import { BootSequence } from "@/components/overlays/BootSequence";
 import { ClientEffects } from "@/components/overlays/ClientEffects";
 import { ServiceModalHost } from "@/components/overlays/ServiceModal";
 import { SiteHeader } from "@/components/sections/SiteHeader";
-import { Trailer } from "@/components/sections/Trailer";
+import { HeroBillboard, Trailer } from "@/components/sections/Trailer";
 import { Marquee } from "@/components/sections/Marquee";
 import { ServiceRow } from "@/components/sections/ServiceRow";
 import { TopTenRow } from "@/components/sections/TopTenRow";
@@ -30,10 +30,13 @@ export default function HomePage() {
       <BootSequence />
       <SiteHeader />
       <main id="main" tabIndex={-1} className="outline-none">
-        <Trailer />
-        <Marquee words={categories.map((c) => c.shortTitle)} />
+        <HeroBillboard />
 
-        <section id="services" aria-labelledby="services-title" className="relative pt-10 pb-6">
+        <section
+          id="services"
+          aria-labelledby="services-title"
+          className="relative z-10 -mt-[14svh] pb-6"
+        >
           <div className="gutter mb-8 flex flex-wrap items-end justify-between gap-4">
             <h2 id="services-title" className="display text-[clamp(2.4rem,6vw,4.4rem)]">
               Browse services
@@ -53,6 +56,8 @@ export default function HomePage() {
           ))}
         </section>
 
+        <Trailer />
+        <Marquee words={categories.map((c) => c.shortTitle)} />
         <BundleBillboard bundle={growthBundle} />
         <WebAppsSection />
         <Marquee words={["Enquire", "Chat", "Quote", "Build", "Deliver"]} reverse />

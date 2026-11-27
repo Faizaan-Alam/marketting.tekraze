@@ -14,40 +14,51 @@ const HeroScene = dynamic(() => import("@/components/three/HeroScene"), { ssr: f
 const FRAME_START = 0.1;
 const FRAME_END = 0.87;
 
-/** Background media: poster → muted loop → scroll-scrubbed frame sequence, plus the 3D layer. */
+/**
+ * Background media.
+ *  billboard — poster → muted loop (+ the 3D deck on high-tier devices); these are the first-screen
+ *              assets the intro waits for.
+ *  trailer   — poster → scroll-scrubbed frame sequence + the 3D deck, loaded when it comes near.
+ */
 export function TrailerMedia({
+  variant,
   poster,
   loop,
   frameCount,
   description,
 }: {
+  variant: "billboard" | "trailer";
   poster: string | null;
   loop: string | null;
   frameCount: number;
   description: string | null;
 }) {
+  const isBillboard = variant === "billboard";
   const caps = useCapabilities();
   const bootDone = useUi((s) => s.bootDone);
   const video = useRef<HTMLVideoElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const root = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
-  const videoOn = caps.ready && loop !== null && !caps.reducedMotion && !caps.saveData;
-  const sceneOn = caps.ready && caps.tier !== "low";
-  const [inView, setInView] = useState(true);
+  const [inView, setInView] = useState(isBillboard);
+  const [near, setNear] = useState(isBillboard);
+  const videoOn =
+    isBillboard && caps.ready && loop !== null && !caps.reducedMotion && !caps.saveData;
+  const sceneOn = caps.ready && near && (isBillboard ? caps.tier === "high" : caps.tier !== "low");
 
   // Decide what to load, and register real boot tasks for it.
   useEffect(() => {
-    if (poster) {
+    if (poster && isBillboard) {
       const img = new Image();
       img.src = poster;
       trackBoot("hero-poster", img.decode());
     }
-  }, [poster]);
+  }, [poster, isBillboard]);
   useEffect(() => {
+    if (!isBillboard) return;
     if (videoOn) expectBoot("hero-video");
     if (sceneOn) expectBoot("scene");
-  }, [videoOn, sceneOn]);
+  }, [videoOn, sceneOn, isBillboard]);
 
   useEffect(() => {
     const el = root.current;
@@ -55,8 +66,16 @@ export function TrailerMedia({
     const io = new IntersectionObserver(([entry]) => setInView(entry?.isIntersecting ?? true), {
       rootMargin: "0px",
     });
+    // start loading the trailer's heavy layers one screen before they are needed
+    const ioNear = new IntersectionObserver(([entry]) => entry?.isIntersecting && setNear(true), {
+      rootMargin: "100% 0px",
+    });
     io.observe(el);
-    return () => io.disconnect();
+    ioNear.observe(el);
+    return () => {
+      io.disconnect();
+      ioNear.disconnect();
+    };
   }, []);
 
   // Pause the loop when it is off screen, hidden behind the frame sequence, or paused by the user.
@@ -69,8 +88,8 @@ export function TrailerMedia({
 
   // Frame sequence: preload after the intro, draw from scroll progress on the shared ticker.
   useEffect(() => {
-    if (!bootDone || frameCount === 0 || !caps.ready || caps.tier === "low" || caps.saveData)
-      return;
+    if (isBillboard || !near || !bootDone || frameCount === 0 || !caps.ready) return;
+    if (caps.tier === "low" || caps.saveData) return;
     if (!document.documentElement.classList.contains("motion-ok")) return;
     const cvs = canvas.current;
     const ctx = cvs?.getContext("2d", { alpha: false });
@@ -128,7 +147,7 @@ export function TrailerMedia({
       cancelled = true;
       gsap.ticker.remove(draw);
     };
-  }, [bootDone, frameCount, caps]);
+  }, [bootDone, frameCount, caps, isBillboard, near]);
 
   return (
     <div
@@ -173,8 +192,8 @@ export function TrailerMedia({
       />
       {sceneOn ? (
         <div className="absolute inset-0">
-          <SafeBoundary onError={() => resolveBoot("scene")}>
-            <HeroScene active={inView} onReady={() => resolveBoot("scene")} />
+          <SafeBoundary onError={() => isBillboard && resolveBoot("scene")}>
+            <HeroScene active={inView} onReady={() => isBillboard && resolveBoot("scene")} />
           </SafeBoundary>
         </div>
       ) : null}
@@ -202,7 +221,7 @@ export function TrailerController({ bands }: { bands: number[] }) {
   useEffect(() => {
     if (!bootDone) return;
     if (!document.documentElement.classList.contains("motion-ok")) return;
-    const words = document.querySelectorAll<HTMLElement>('[data-panel="0"] .reveal-word');
+    const words = document.querySelectorAll<HTMLElement>("#hero-title .reveal-word");
     words.forEach((w, i) => {
       w.animate(
         [
@@ -327,9 +346,9 @@ export function TrailerRail({ labels }: { labels: string[] }) {
         <button
           type="button"
           className="btn btn-ghost min-h-10 py-2 text-sm"
-          onClick={() => scrollToId("services")}
+          onClick={() => scrollToId("growth-bundle")}
         >
-          Skip intro
+          Skip trailer
         </button>
       </div>
     </div>
