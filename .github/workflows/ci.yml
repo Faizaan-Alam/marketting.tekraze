@@ -21,7 +21,7 @@ jobs:
       # build-time public values for the test build (no CAPTCHA widget in CI)
       NEXT_PUBLIC_CAPTCHA_PROVIDER: none
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - uses: actions/setup-node@v4
