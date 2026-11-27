@@ -2,29 +2,18 @@ import { expect, test } from "@playwright/test";
 import { failOnDialogs, gotoQuote, skipIntro } from "./helpers";
 
 test.describe("main flows", () => {
-  test("intro → profile pick → browse", async ({ page }) => {
+  test("intro → browse (shown once per session)", async ({ page }) => {
     failOnDialogs(page);
     await page.goto("/");
     const boot = page.locator(".boot-screen");
     await expect(boot).toBeVisible();
     await boot.getByRole("button", { name: "Skip intro" }).click();
-    const gate = page.getByRole("dialog", { name: "Who’s watching?" });
-    await expect(gate).toBeVisible();
-    await gate.getByRole("button", { name: "Continue as Balwinder Singh" }).click();
-    await expect(gate).toBeHidden({ timeout: 5000 });
+    await expect(boot).toBeHidden({ timeout: 5000 });
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Five ways we help you grow.");
-    expect(await page.evaluate(() => sessionStorage.getItem("tz-profile"))).toBe("balwinder-singh");
-    // the choice is remembered for the session: reload shows no intro or gate
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    // remembered for the session: a reload goes straight to the page
     await page.reload();
     await expect(page.locator(".boot-screen")).toBeHidden();
-    await expect(page.locator(".profile-gate")).toBeHidden();
-  });
-
-  test("skip on the profile screen", async ({ page }) => {
-    await page.addInitScript(() => window.sessionStorage.setItem("tz-boot", "1"));
-    await page.goto("/");
-    await page.getByRole("button", { name: "Skip, just browse" }).click();
-    await expect(page.locator(".profile-gate")).toBeHidden();
   });
 
   test("open a title card from a row, close with Esc, focus returns", async ({ page }) => {
@@ -125,7 +114,6 @@ test.describe("resilience", () => {
       await expect(page.getByText(text).first()).toBeAttached();
     }
     await expect(page.locator(".boot-screen")).toBeHidden();
-    await expect(page.locator(".profile-gate")).toBeHidden();
     await context.close();
   });
 
@@ -136,7 +124,6 @@ test.describe("resilience", () => {
     const page = await context.newPage();
     await page.addInitScript(() => {
       sessionStorage.setItem("tz-boot", "1");
-      sessionStorage.setItem("tz-profile", "guest");
     });
     await page.goto("/");
     await expect(page.locator("html")).not.toHaveClass(/motion-ok/);

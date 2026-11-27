@@ -2,7 +2,7 @@ import { z } from "@/lib/zod";
 import { memberSchema, type Member } from "./schema";
 
 /**
- * TEAM — edit this file to change the "Who's watching?" profiles and the cast section.
+ * TEAM — edit this file to change the "Meet the team" cast section.
  *
  * Photos: put `<slug>.jpg|jpeg|png|webp|avif` in `public/members/` (e.g. kamran-alam.jpg).
  * A missing photo shows a generated initials avatar instead.

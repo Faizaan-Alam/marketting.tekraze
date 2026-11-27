@@ -195,13 +195,12 @@ export function TrailerMedia({
 
 /** Reads scroll progress and drives panel visibility + word reveals on the shared ticker. */
 export function TrailerController({ bands }: { bands: number[] }) {
-  const gateOpen = useUi((s) => s.gateOpen);
   const bootDone = useUi((s) => s.bootDone);
   const anchor = useRef<HTMLSpanElement>(null);
 
-  // Play the billboard headline reveal once the intro and profile screen are gone.
+  // Play the billboard headline reveal once the intro is gone.
   useEffect(() => {
-    if (!bootDone || gateOpen) return;
+    if (!bootDone) return;
     if (!document.documentElement.classList.contains("motion-ok")) return;
     const words = document.querySelectorAll<HTMLElement>('[data-panel="0"] .reveal-word');
     words.forEach((w, i) => {
@@ -218,7 +217,7 @@ export function TrailerController({ bands }: { bands: number[] }) {
         },
       );
     });
-  }, [bootDone, gateOpen]);
+  }, [bootDone]);
 
   useEffect(() => {
     if (!document.documentElement.classList.contains("motion-ok")) return;

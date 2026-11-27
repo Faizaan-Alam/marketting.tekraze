@@ -2,7 +2,6 @@ import { categories, growthBundle, servicesByCategory, topTen } from "@/content/
 import { mainSiteLinks } from "@/content/site";
 import { team } from "@/content/team";
 import { BootSequence } from "@/components/overlays/BootSequence";
-import { ProfileGate } from "@/components/overlays/ProfileGate";
 import { ClientEffects } from "@/components/overlays/ClientEffects";
 import { ServiceModalHost } from "@/components/overlays/ServiceModal";
 import { SiteHeader } from "@/components/sections/SiteHeader";
@@ -29,7 +28,6 @@ export default function HomePage() {
   return (
     <>
       <BootSequence />
-      <ProfileGate members={team} />
       <SiteHeader />
       <main id="main" tabIndex={-1} className="outline-none">
         <Trailer />

@@ -10,9 +10,6 @@ export type UiState = {
   /** Shared-element id of the card that opened the modal (Framer Motion layoutId). */
   modalLayoutId: string | null;
   searchOpen: boolean;
-  /** Cosmetic "who's watching" choice (sessionStorage only). */
-  profile: string | null;
-  gateOpen: boolean;
   bootDone: boolean;
   /** Pre-fill for the enquiry form's Service field. */
   quoteService: string | null;
@@ -25,8 +22,6 @@ let state: UiState = {
   modalOrigin: null,
   modalLayoutId: null,
   searchOpen: false,
-  profile: null,
-  gateOpen: false,
   bootDone: false,
   quoteService: null,
   quoteNonce: 0,

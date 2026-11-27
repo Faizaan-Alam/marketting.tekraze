@@ -39,11 +39,10 @@ function useSmoothScroll(): void {
   }, []);
 }
 
-/** While the intro or profile screen is up, the page behind it is inert (not focusable). */
+/** While the intro is up, the page behind it is inert (not focusable). */
 function useInertBackground(): void {
   const bootDone = useUi((s) => s.bootDone);
-  const gateOpen = useUi((s) => s.gateOpen);
-  const blocked = !bootDone || gateOpen;
+  const blocked = !bootDone;
   useEffect(() => {
     const els = [
       document.querySelector("header"),

@@ -116,7 +116,7 @@ export const memberSchema = z
       .string()
       .regex(/^\d{1,3}% \d{1,3}%$/)
       .default("50% 35%"),
-    /** Profile tile colour on the "Who's watching?" screen. */
+    /** Colour of the generated initials avatar when there is no photo. */
     hue: z.number().int().min(0).max(360),
     socials: z.array(socialLinkSchema).max(8),
   })

@@ -368,68 +368,6 @@ html:not(.js) .boot-screen {
   }
 }
 
-/* ── Profile gate ───────────────────────────────────────────── */
-html[data-profile] .profile-gate,
-html:not(.js) .profile-gate {
-  display: none;
-}
-.profile-tile {
-  --rx: 0deg;
-  --ry: 0deg;
-  --mx: 50%;
-  --my: 30%;
-  transform-style: preserve-3d;
-  border-radius: 1rem;
-}
-.profile-tile__card {
-  transform: rotateX(var(--rx)) rotateY(var(--ry));
-  transition:
-    transform 400ms var(--ease-out-expo),
-    box-shadow 400ms ease;
-  box-shadow: 0 0 0 1px rgb(238 232 225 / 0.08);
-}
-.profile-tile:hover .profile-tile__card,
-.profile-tile:focus-visible .profile-tile__card {
-  box-shadow:
-    0 0 0 3px hsl(var(--hue) 85% 60%),
-    0 1.5rem 4rem -1rem hsl(var(--hue) 85% 50% / 0.65);
-}
-.profile-tile:focus-visible {
-  outline: none;
-}
-.profile-tile__sheen {
-  background: radial-gradient(
-    circle at var(--mx) var(--my),
-    hsl(var(--hue) 90% 70% / 0.35),
-    transparent 55%
-  );
-  opacity: 0;
-  transition: opacity 300ms ease;
-  mix-blend-mode: screen;
-}
-.profile-tile:hover .profile-tile__sheen,
-.profile-tile:focus-visible .profile-tile__sheen {
-  opacity: 1;
-}
-.profile-tile__role {
-  opacity: 0;
-  transform: translateY(-0.3rem);
-  transition:
-    opacity 300ms ease,
-    transform 300ms var(--ease-out-expo);
-}
-.profile-tile:hover .profile-tile__role,
-.profile-tile:focus-visible .profile-tile__role {
-  opacity: 1;
-  transform: none;
-}
-@media (hover: none) {
-  .profile-tile__role {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 /* ── Trailer extras ─────────────────────────────────────────── */
 html.motion-ok .trailer-panel[data-panel="0"] {
   opacity: 1;

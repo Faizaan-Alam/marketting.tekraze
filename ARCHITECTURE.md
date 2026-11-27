@@ -42,7 +42,7 @@ src/
   content/             ← EDIT HERE: services, site copy, team, video map (typed + zod)
   components/
     sections/          header, trailer (hero), rows, bundle, web apps, process, cast, FAQ, form, footer
-    overlays/          boot sequence, profile gate, search, modal, cursor, client effects
+    overlays/          boot sequence, search, modal, cursor, client effects
     three/             HeroScene (R3F), PosterHoverGL (raw three.js shader)
     ui/                cards, poster art, avatar, icons, buttons, error boundary
   lib/                 search, sanitize, urls, csp, media manifests, enquiry schema, zod
@@ -79,7 +79,7 @@ so a failed chunk or lost context falls back to the 2D version silently.
 
 ## Component list
 
-BootSequence · ProfileGate · SiteHeader · SearchOverlay · Trailer (TrailerMedia, TrailerController,
+BootSequence · SiteHeader · SearchOverlay · Trailer (TrailerMedia, TrailerController,
 TrailerRail, HeroScene) · Marquee · RowShell / ServiceRow / TopTenRow · ServiceCard (+ PosterHoverGL)
 · ServiceModalHost / ModalFrame · BundleBillboard · WebAppsSection (DeviceFrame, SandboxedIframe) ·
 ProcessQueue · CastSection · WhySection · FaqSection · EnquirySection / EnquiryForm · ContinueRow ·

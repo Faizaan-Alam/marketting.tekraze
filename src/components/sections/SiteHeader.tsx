@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { mainSiteLinks, navSections, site } from "@/content/site";
-import { team } from "@/content/team";
 import { ChevronIcon, CloseIcon, ExternalIcon, MenuIcon, SearchIcon } from "@/components/ui/Icons";
 import { requestQuote, setUi, useUi } from "@/lib/client/store";
 import { scrollToId } from "@/lib/client/motion";
@@ -21,8 +20,6 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const searchOpen = useUi((s) => s.searchOpen);
-  const profile = useUi((s) => s.profile);
-  const member = team.find((m) => m.slug === profile);
   const moreRef = useRef<HTMLLIElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
 
@@ -150,20 +147,6 @@ export function SiteHeader() {
           >
             <SearchIcon />
           </button>
-          {member ? (
-            <span
-              className="hidden h-8 w-8 place-items-center rounded-md text-xs font-bold text-white sm:grid"
-              style={{ background: `hsl(${member.hue} 70% 45%)` }}
-              title={`Touring as ${member.name}`}
-              aria-label={`Touring as ${member.name}`}
-              role="img"
-            >
-              {member.name
-                .split(" ")
-                .map((p) => p[0])
-                .join("")}
-            </span>
-          ) : null}
           <button
             type="button"
             className="btn btn-primary hidden min-h-10 py-2 text-sm md:inline-flex"

@@ -50,16 +50,15 @@ export function ServiceModalHost() {
   const origin = useUi((s) => s.modalOrigin);
   const layoutId = useUi((s) => s.modalLayoutId);
   const bootDone = useUi((s) => s.bootDone);
-  const gateOpen = useUi((s) => s.gateOpen);
 
   const close = useCallback(() => setUi({ modal: null, modalLayoutId: null }), []);
 
   // Deep link: ?service=<slug> (validated against the known slugs) once the intro is done.
   useEffect(() => {
-    if (!bootDone || gateOpen) return;
+    if (!bootDone) return;
     const wanted = new URLSearchParams(window.location.search).get("service");
     if (wanted && KNOWN.has(wanted)) openService(wanted, null);
-  }, [bootDone, gateOpen]);
+  }, [bootDone]);
 
   // Mirror the open title card in ?service= (only after one has been opened, so the deep link
   // above is not erased before it is read).

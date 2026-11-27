@@ -59,10 +59,10 @@ export const viewport: Viewport = {
 
 /**
  * Runs before first paint (nonce-allowed): marks JS/motion support and restores the cosmetic
- * session choices so the intro and profile screen never flash for returning visitors.
+ * session flag so the intro never flashes for returning visitors.
  * Values read from sessionStorage are validated before use.
  */
-const BOOT_SCRIPT = `(function(){var d=document.documentElement;d.classList.add("js");try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("motion-ok");var s=window.sessionStorage;if(s.getItem("tz-boot")==="1")d.setAttribute("data-boot","seen");var p=s.getItem("tz-profile");if(p&&/^[a-z0-9-]{1,40}$/.test(p))d.setAttribute("data-profile",p)}catch(e){}})();`;
+const BOOT_SCRIPT = `(function(){var d=document.documentElement;d.classList.add("js");try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("motion-ok");var s=window.sessionStorage;if(s.getItem("tz-boot")==="1")d.setAttribute("data-boot","seen");}catch(e){}})();`;
 
 /**
  * Optional cookie-less analytics (e.g. Plausible). Off unless BOTH variables are set; the origin

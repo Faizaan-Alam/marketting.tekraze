@@ -8,7 +8,7 @@ See also [`/.well-known/security.txt`](public/.well-known/security.txt).
 ## Security model
 
 The site is **static content plus one endpoint**. There are no accounts, no admin panel and no
-database. "Who's watching?" is cosmetic (sessionStorage only). The only server-side code that
+database. The only server-side code that
 handles input is `POST /api/enquiry` (and `GET /api/enquiry`, which issues a CSRF token).
 
 ### Enquiry endpoint — checks in order

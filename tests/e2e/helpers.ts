@@ -1,10 +1,9 @@
 import { expect, type Page } from "@playwright/test";
 
-/** Skip the intro and the profile screen for tests that are about other features. */
+/** Skip the intro for tests that are about other features. */
 export async function skipIntro(page: Page): Promise<void> {
   await page.addInitScript(() => {
     window.sessionStorage.setItem("tz-boot", "1");
-    window.sessionStorage.setItem("tz-profile", "guest");
   });
 }
 

@@ -44,7 +44,7 @@ Display sizes are fluid with `clamp()` (e.g. hero `clamp(3.6rem, 10.5vw, 9.5rem)
 ## Layout & spacing
 
 - 12-column editorial grid (`.grid-12`), gutters `clamp(1rem, 4vw, 3.5rem)`.
-- Content left-aligned; only the profile screen and the cast credits are centred (they are rituals).
+- Content left-aligned; only the cast credits are centred (they are a ritual).
 - 4 px base spacing; sections breathe with `clamp(3rem, 8vw, 6rem)` vertical padding.
 - Rows bleed to the screen edge; their first card aligns to the gutter (`scroll-padding-inline`).
 - Radii by hierarchy: pills 999 px (buttons, tags) · cards 0.6–0.8 rem · panels 1–1.25 rem.
@@ -71,7 +71,6 @@ content falls back to a plain readable stack.
 | Moment           | Technique                                                                                            | Fallback                                                               |
 | ---------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | Boot ident       | Letter-by-letter red wordmark, counter = resolved/declared real assets                               | Hidden without JS; 350 ms for reduced motion; skippable (button / Esc) |
-| Who's watching?  | CSS 3D tilt + hue glow, role reveal, WAAPI zoom-through                                              | Instant switch                                                         |
 | Season 1 trailer | Sticky stage, ScrollTrigger progress → panels, word reveals, frame-sequence canvas, R3F deck         | Stacked episodes with poster image                                     |
 | Marquee          | GSAP loop, `timeScale` ← Lenis velocity                                                              | Static strip                                                           |
 | Poster ripple    | One shared WebGL renderer, canvas re-parented into the hovered poster, GLSL ripple + chromatic split | The SVG poster (CSS drift animation)                                   |
