@@ -16,7 +16,6 @@ const config = [
       "src/generated/**",
       "playwright-report/**",
       "test-results/**",
-      ".claude/**",
       "next-env.d.ts",
     ],
   },
