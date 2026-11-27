@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+
+# builds
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# environment & secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# tests
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# generated at build time (rebuilt by `npm run prepare-content`)
+src/generated/
+public/generated/
+
+# raw source videos are large; optimised versions live in public/video/web/
+# (remove these lines if you prefer to version the originals with Git LFS)
+public/video/*.mp4
+public/video/*.mov
+public/video/*.webm
+!public/video/web/
+
+# misc
+.DS_Store
+*.log
+.vscode/
+.idea/

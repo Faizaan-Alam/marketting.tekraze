@@ -1,0 +1,6 @@
+services.tekraze.com — vulnerability disclosure policy
+
+Please report security issues privately through https://tekraze.com/contact-us/ with
+"Security" in the subject. Include steps to reproduce. Please do not run automated scanners at
+high volume, access other people's data, or disrupt the service. We will acknowledge reports
+and fix confirmed issues as quickly as we can. There is no bug bounty.
