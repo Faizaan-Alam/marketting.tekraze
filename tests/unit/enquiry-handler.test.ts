@@ -240,6 +240,15 @@ describe("enquiry endpoint", () => {
     expect(text).not.toMatch(/ECONNREFUSED|10\.0\.0\.5|node_modules|nodemailer/);
   });
 
+  it("fails closed with 'unavailable' when the Turnstile secret is missing", async () => {
+    e = env({ TURNSTILE_SECRET_KEY: undefined });
+    h = createEnquiryHandlers({ env: () => e, deliver, now: () => now });
+    const tok = await token();
+    now += 5000;
+    expect((await post(tok)).status).toBe(503);
+    expect(deliver).not.toHaveBeenCalled();
+  });
+
   it("fails closed when SMTP is not configured", async () => {
     e = env({ SMTP_HOST: undefined });
     const tok = await token();

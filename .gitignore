@@ -38,3 +38,4 @@ public/video/*.webm
 *.log
 .vscode/
 .idea/
+.vercel/

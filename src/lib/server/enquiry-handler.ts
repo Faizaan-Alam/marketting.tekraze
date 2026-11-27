@@ -272,6 +272,15 @@ export function createEnquiryHandlers(deps: HandlerDeps) {
     }
 
     // 7. CAPTCHA
+    if (env.CAPTCHA_PROVIDER === "turnstile" && !env.TURNSTILE_SECRET_KEY && !deps.verifyCaptcha) {
+      // fail closed, but honestly: this is a configuration gap, not the visitor's mistake
+      logSecurityEvent("config_error", { detail: "TURNSTILE_SECRET_KEY missing" });
+      return fail(
+        503,
+        "unavailable",
+        "The enquiry form is unavailable right now. Please try again later.",
+      );
+    }
     if (env.CAPTCHA_PROVIDER === "turnstile") {
       const verify =
         deps.verifyCaptcha ?? ((t, i) => verifyTurnstile(t, env.TURNSTILE_SECRET_KEY, i));
